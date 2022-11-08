@@ -5,14 +5,225 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script defer src="/script.js"></script>
-    <title>CARD GENERATOR 1.0</title>
+    <title>M17 | CARD GENERATOR 1.0</title>
 </head>
 
 <body>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+128+Text&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+        *{
+            margin:0;
+            padding:0;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body{
+            background-color: #ffffff;
+            color: rgb(29, 27, 27);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cabecalho{
+            display: flex;
+            flex-direction: column;
+            gap:5px;
+            text-align: center;
+            width: 100vw;
+            padding:10px;
+            background-color: #1f1f20;
+        }
+        
+        .cabecalho h1{
+            font-size:16px;
+            text-shadow: 1px 1px #02346f;
+            font-weight: 900;
+            color: #fdf6ff;
+        }
+        
+        .cabecalho p{
+            font-size: 11px;
+            color:#fff;
+            text-shadow: 1px 1px #02346f;
+        }
+        
+        .form{
+            display: flex;
+            width: 50vw;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left:500px;
+            padding-right:500px;
+            justify-content: center;
+            flex-direction: column;
+            gap:10px;
+            background: linear-gradient(#c7c6c6, #dadada);
+        }
+        
+        .form label{
+            color:#000000;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .form .input-adm{
+            width: auto;
+            height: 20px;
+            outline: none;
+            padding:3px;
+            padding-left: 5px;
+            border: none;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        
+        .form .input-adm:focus{
+            border: none;
+            background-color: #f4e9fc;
+        }
+        
+        .form .input-adm::placeholder{
+            color:#817f7f;
+        }
+        
+        
+        .form .btn{
+            display: flex;
+            gap:10px;
+        }
+        
+        .form .btn .btn-submit{
+            background: linear-gradient(#8a0be5, #7a04ce) ;
+            width: 50%;
+            color: rgb(255, 255, 255);
+            border: 1px solid #7a04ce;
+            text-shadow: 1px 1px 1px #046c92;
+            height: 30px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-shadow: 1px 1px 1px #51028a;
+            cursor: pointer;
+        }
+        
+        .form .btn-limpar{
+            background: linear-gradient(#161616, #000000) ;
+            width: 50%;
+            color: #fff;
+            border: none;
+            height: 30px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .form .row{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        
+        .form .column{
+            display: flex;
+            flex-direction: column;
+            gap:5px;
+        }
+        
+        .content{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap:2px;
+            width: 100vw;
+            margin-top:50px;
+        }
+        
+        .card{
+            display: none;
+            width: 700px;
+            height: 200px;
+            background-color: #e9e9e9;
+            border:1px solid #171717;
+            color: #000000;
+            font-size:14px;
+            font-weight: 300;
+            border-radius: 4px;
+        }
+        
+        .card-front{
+            width: 50%;
+            padding:10px;
+            border-right: 1px solid #0d0707;
+        }
+        
+        .card-front-text{
+            display: flex;
+            flex-direction: column;
+            gap:5px;
+        }
+        
+        .card-front-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 400;
+        }
+        
+        .card-front-body{
+            display: flex;
+            flex-direction: column;
+            gap:10px;
+            font-size:12px;
+            margin-top:30px;
+        }
+        
+        .card-front-text .card-front-titulo{
+            font-size:13px;
+        }
+        
+        .card-front-text .card-front-subtitulo{
+            font-size:12px;
+            color:#f0dfff;
+            
+        }
+        
+        .card-back{
+            width: 50%;
+            padding:15px;
+            display: flex;
+            flex-direction: column;
+            gap:12px;
+            color: rgb(34, 34, 36);
+            background-color: #e7e7e7;
+        }
+        
+        .card-back-text{
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+        
+        .card-back-vcode{
+            text-align: center;
+            font-size:11px;
+        }
+        
+        .card-back-text p{
+            font-weight: 500;
+        }
+        
+        .vcode{
+            font-family: 'Libre Barcode 128 Text', cursive;
+            font-size:40px;
+            color:#1f1f20;
+        }
+    </style>
     <header class="cabecalho" id="header">
-        <h1>CARD GENERATOR 1.0</h1>
+        <h1>M17 | CARD GENERATOR 1.0</h1>
         <p>Todos os direitos reservados - M17 TECNOLOGIA </p>
     </header>
     <section class="form" id="form">
@@ -39,8 +250,8 @@
             </div>
         </div>
         <div class="btn" id="btn" name="btn">
-            <button class="btn-submit" onclick="addItem();">GERAR</button>
-            <button class="btn-limpar" onclick="limpar();">LIMPAR</button>
+            <button class="btn-submit" onclick="addItem();">GERAR CARTEIRINHA</button>
+            <button class="btn-limpar" onclick="limpar();">LIMPAR FORMULÁRIO</button>
         </div>
     </section>
     <section class="content" id="content">
@@ -53,6 +264,7 @@
     </section>
 
 <script type="text/javascript">
+
 
 function addItem(valor) {
 
@@ -78,7 +290,7 @@ var rg = document.querySelector('#rg').value;
 var cpf = document.querySelector('#cpf').value;
 var dn = document.querySelector('#dn').value;
 
-if(nome === '' || rg === ''|| cpf === '' || dn === '') {
+if (nome === '' || rg === '' || cpf === '' || dn === '') {
     alert('Existem campos obrigatórios vazios!')
     return
 }
@@ -95,6 +307,7 @@ el.style.cssText = 'display: block; width: 150px; height:25px;'
 let card = document.getElementById('card');
 
 card.style.cssText = 'display: flex';
+
 
 }
 
@@ -114,7 +327,7 @@ window.print();
 
 }
 
-function add_li(nome, rg, cpf, dn, vcode, dtemi){
+function add_li(nome, rg, cpf, dn, vcode, dtemi) {
 
 // Cria os elementos
 
@@ -133,38 +346,38 @@ var card_back_vcode = document.createElement('div');
 
 // Estiliza os elementos
 
-card.style.cssText = 
-'display: flex; width: 700px; height: 200px; background-color: #e9e9e9; border:1px solid #171717; color: #000000; font-size:14px; font-weight: 300; border-radius: 4px';
+card.style.cssText =
+    'display: flex; width: 700px; height: 200px; background-color: #EFE3F4; border:1px solid #171717; color: #000000; font-size:14px; font-weight: 300; border-radius: 1px';
 
 card_front.style.cssText =
-'width: 50%; padding:10px; border-right: 1px solid #0d0707;'
+    'width: 50%; border-right: 1px solid #0d0707;'
 
-card_front_text.style.cssText  = 
-'display: flex; flex-direction: column; gap:5px;'
+card_front_text.style.cssText =
+    'display: flex; flex-direction: column; gap:3px; padding:5px'
 
-card_front_header.style.cssText = 
-'display: flex; align-items: center; justify-content: space-between; font-weight: 400;'
+card_front_header.style.cssText =
+    'display: flex; align-items: center; width: auto; justify-content: space-around; font-weight: 400; background-color: #650076; color: #fae3fd; padding:3px; border-radius:2px;'
 
 card_front_header_logo.style.cssText =
-'width:110px;'
+    'width:110px;'
 
 card_front_header_titulos.style.cssText =
-'font-size:12px;'
+    'font-size:12px;'
 
-card_front_body.style.cssText = 
-'display: flex; flex-direction: column; gap:10px; font-size:12px; margin-top:30px;'
+card_front_body.style.cssText =
+    'display: flex; flex-direction: column; gap:5px; font-size:12px; margin-top:20px;'
 
-card_back.style.cssText = 
-'width: 50%; padding:15px; display: flex; flex-direction: column; gap:12px; color: rgb(34, 34, 36); background-color: #e7e7e7;'
+card_back.style.cssText =
+    'width: 50%; padding:15px; display: flex; flex-direction: column; gap:12px; color: rgb(34, 34, 36); background-color: #EFE3F4;'
 
 card_back_text.style.cssText =
-'display: flex; justify-content: space-between; font-size: 11px;'
+    'display: flex; justify-content: space-between; font-size: 11px;'
 
 card_back_descricao.style.cssText =
-'word-wrap: break-word; font-size:12px; height: 80px;'
+    'word-wrap: break-word; font-size:12px; height: 80px;'
 
-card_back_vcode.style.cssText = 
-'text-align: center; font-size:11px;'
+card_back_vcode.style.cssText =
+    'text-align: center; font-size:11px;'
 
 // Insere os elementos
 
@@ -192,25 +405,27 @@ card_front_header.appendChild(card_front_header_titulos);
 
 // Insere conteúdo nos elementos
 
-card_front_header_logo.innerHTML = '<img src="https://uploaddeimagens.com.br/images/004/093/800/full/logopref.png?1667814580" alt="logopref" width="110px" />';
+card_front_header_logo.innerHTML = '<img src="https://uploaddeimagens.com.br/images/004/124/306/original/logopref.png?1667929164" alt="logopref" width="110px" />';
 
-card_front_header_titulos.innerHTML = '<p style="font-size:13px;">CARTEIRINHA DE PRIORIDADE<p><p style="color:#6101b4; font-size:12px;">PESSOA COM FIBROMIALGIA</p>'
+card_front_header_titulos.innerHTML = '<p style="font-size:13px; padding:3px; font-weight:600;">CARTEIRINHA DE PRIORIDADE<p><p style="font-size:11px; font-weight:600; padding:3px;">PORTADOR DE FIBROMIALGIA</p>'
 
-card_front_body.innerHTML = 
-'<p><strong>NOME:</strong> <span class="cnome" id="cnome" name="cnome">' + nome + '</span></p>' + '<p><strong>RG: </strong><span class="crg" id="crg" name="crg">' + rg +'</span></p>'
-+ '<p><strong> CPF: </strong><span class="ccpf" id="ccpf" name="ccpf">' + cpf + '</span></p>' + '<p><strong>DATA DE NASCIMENTO:</strong> <span class="cdn" id="cdn" name="cdn">' + dn +'</span></p>'
+card_front_body.innerHTML =
+    '<p style="padding:2px; color:#68007c; font-weight:500;">NOME: <span style="color:#000000; font-weight:500" class="cnome" id="cnome" name="cnome">' + nome + '</span></p>'
+    + '<p style="padding:2px; color:#68007c; font-weight:500;">DATA DE NASCIMENTO: <span style="color:#000000;" class="cdn" id="cdn" name="cdn">' + dn + '</span></p>'
+    + '<p style="padding:2px; color:#68007c; font-weight:500; display:flex; gap:5px;">RG:<span style="color:#000000;" class="crg" id="crg" name="crg">' + rg + '</span> CPF: <span style="color:#000000;" class="ccpf" id="ccpf" name="ccpf">' + cpf + '</span></p>'
+    + '<p style=" font-size:9px; font-weight:500; margin-top:12px; width:70%;"> - VÁLIDO SOMENTE COM A APRESENTAÇÃO DE DOCUMENTO DE IDENTIFICAÇÃO COM FOTO.</p>'
 
-card_back_text.innerHTML = 
-'<p>LEI MUNICIPAL Nº 340/2020</p><p>DATA DE EMISSÃO: <span class="dtemi" id="dtemi" name="dtemi">' + dtemi +'</span></p>'
+card_back_text.innerHTML =
+    '<p style="color:#68007c; font-weight:500;">DATA DE EMISSÃO: <span style="color:#000000; font-weight:400;" class="dtemi" id="dtemi" name="dtemi">' + dtemi + '</span></p>'
 
 card_back_descricao.innerHTML =
-'<p>Pessoas com diagnóstico de fibromialgia tem direito ao atendimento prioritário em estabelecimentos públicos.</p>'
+    '<p>Pessoas portadoras de Fibromialgia possuem os seguintes direitos garantidos de acordo com a Lei Municipal nº 340/2022:</p><br/><p style="text-align:center;"><ul style="list-style:none; font-weight:500; color:#68007c;"><li>FILAS PREFERENCIAIS</li><li>ESTACIONAMENTO PREFERENCIAL</li></ul></p>'
 
-card_back_vcode.innerHTML = 
-'<p>CÓDIGO DE VERIFICAÇÃO:</p><span class="vcode" id="vcode" name="vcode">'+ vcode + '</span>'
+card_back_vcode.innerHTML =
+    '<p style="color:#68007c;">CÓDIGO DE VERIFICAÇÃO:</p><span style="font-size:34px;" class="vcode" id="vcode" name="vcode">' + vcode + '</span>'
 }
 
-function limpar(){
+function limpar() {
 var nome = document.querySelector('#nome');
 var rg = document.querySelector('#rg');
 var cpf = document.querySelector('#cpf');
@@ -221,7 +436,7 @@ rg.value = '';
 cpf.value = '';
 dn.value = '';
 }
-
+   
 </script>
 </body>
 
